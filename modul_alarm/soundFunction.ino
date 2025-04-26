@@ -1,3 +1,9 @@
+// ==================================== FUNGSI normal() UNTUK BUZZER TIDAK BUNYI ============================================================================
+void normal(){
+  digitalWrite(buzzPin, LOW);  // Ensure buzzer is off
+}
+// ========================================== AKHIR FUNGSI NORMAL ===========================================================================================
+
 // ========================================== FUNGSI warning() UNTUK BUNYI BUZZER KEADAAN WARNING ===========================================================
 void warning(){
   digitalWrite(buzzPin, HIGH);
