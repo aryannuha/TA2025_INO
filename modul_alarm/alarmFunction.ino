@@ -7,6 +7,8 @@ void alarm(){
       Serial.print(" ");
       Serial.print(suhuData.data);
       Serial.println(" °C");
+
+      normal();
       break;
     case 1:
       Serial.print(suhuData.berita);
@@ -53,6 +55,8 @@ void alarm(){
       Serial.print(" ");
       Serial.print(kelembabanData.data);
       Serial.println(" %");
+
+      normal();
       break;
     case 1:
       Serial.print(kelembabanData.berita);
@@ -99,6 +103,8 @@ void alarm(){
       Serial.print(" ");
       Serial.print(co2Data.data);
       Serial.println(" PPM");
+
+      normal();
       break;
     case 1:
       Serial.print(co2Data.berita);
@@ -145,6 +151,8 @@ void alarm(){
       Serial.print(" ");
       Serial.print(windspeedData.data);
       Serial.println(" m/s");
+
+      normal();
       break;
     case 1:
       Serial.print(windspeedData.berita);
@@ -191,6 +199,8 @@ void alarm(){
       Serial.print(" ");
       Serial.print(rainfallData.data);
       Serial.println(" mm");
+
+      normal();
       break;
     case 1:
       Serial.print(rainfallData.berita);
@@ -237,6 +247,8 @@ void alarm(){
       Serial.print(" ");
       Serial.print(parData.data);
       Serial.println(" µmol/m²/s");
+
+      normal();
       break;
     case 1:
       Serial.print(parData.berita);
@@ -283,6 +295,8 @@ void alarm(){
       Serial.print(" ");
       Serial.print(suhuOutData.data);
       Serial.println(" °C");
+
+      normal();
       break;
     case 1:
       Serial.print(suhuOutData.berita);
@@ -329,6 +343,8 @@ void alarm(){
       Serial.print(" ");
       Serial.print(kelembabanOutData.data);
       Serial.println(" %");
+
+      normal();
       break;
     case 1:
       Serial.print(kelembabanOutData.berita);
