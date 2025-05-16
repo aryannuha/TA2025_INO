@@ -98,6 +98,20 @@ void proses(){
   dtostrf(dayaacData.data, 4, 3, kodeDataDayaAc_str);
   itoa(dayaacData.kodeAlarm, kodeAlarmDayaAc_str, 10);
   strcpy(beritaDayaAc_str, dayaacData.berita.c_str());
+
+  // KONVERSI UNTUK GPS LATITUDE
+  strcpy(kodeModulLat_str, latData.kodeModul.c_str());
+  itoa(latData.kodeVariabel, kodeVariabelLat_str, 10);
+  dtostrf(latData.data, 4, 6, kodeDataLat_str);
+  itoa(latData.kodeAlarm, kodeAlarmLat_str, 10);
+  strcpy(beritaLat_str, latData.berita.c_str());
+
+  // KONVERSI UNTUK GPS LONGTITUDE
+  strcpy(kodeModulLon_str, lonData.kodeModul.c_str());
+  itoa(lonData.kodeVariabel, kodeVariabelLon_str, 10);
+  dtostrf(lonData.data, 4, 4, kodeDataLon_str);
+  itoa(lonData.kodeAlarm, kodeAlarmLon_str, 10);
+  strcpy(beritaLon_str, lonData.berita.c_str());
 }
 // ====================================================== AKHIR FUNGSI proses() ==============================================================================
 
@@ -187,6 +201,18 @@ void parsing(){
     dayaacData.data = data_R;
     dayaacData.kodeAlarm = kodeAlarm_R;
     dayaacData.berita = berita_R;  
+  }else if(kodeModul_R == "10" && kodeVariabel_R == 11){
+    latData.kodeModul = kodeModul_R;
+    latData.kodeVariabel = kodeVariabel_R;
+    latData.data = data_R;
+    latData.kodeAlarm = kodeAlarm_R;
+    latData.berita = berita_R;  
+  }else if(kodeModul_R == "10" && kodeVariabel_R == 12){
+    lonData.kodeModul = kodeModul_R;
+    lonData.kodeVariabel = kodeVariabel_R;
+    lonData.data = data_R;
+    lonData.kodeAlarm = kodeAlarm_R;
+    lonData.berita = berita_R;  
   }else{
     Serial.println("Tidak ada modul");
   }
