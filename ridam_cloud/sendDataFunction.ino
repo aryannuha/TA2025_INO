@@ -97,5 +97,19 @@ void sendData(){
   client.publish("mcs/kodeDataDayaAc", kodeDataDayaAc_str, true);
   client.publish("mcs/kodeAlarmDayaAc", kodeAlarmDayaAc_str, true);
   client.publish("mcs/beritaDayaAc", beritaDayaAc_str, true);
+
+  // PUBLISH GPS LATITUDE
+  client.publish("mcs/kodeModulLat", kodeModulLat_str, true);
+  client.publish("mcs/kodeVariabelLat", kodeVariabelLat_str, true);
+  client.publish("mcs/kodeDataLat", kodeDataLat_str, true);
+  client.publish("mcs/kodeAlarmLat", kodeAlarmLat_str, true);
+  client.publish("mcs/beritaLat", beritaLat_str, true);
+
+  // PUBLISH GPS LATITUDE
+  client.publish("mcs/kodeModulLon", kodeModulLon_str, true);
+  client.publish("mcs/kodeVariabelLon", kodeVariabelLon_str, true);
+  client.publish("mcs/kodeDataLon", kodeDataLon_str, true);
+  client.publish("mcs/kodeAlarmLon", kodeAlarmLon_str, true);
+  client.publish("mcs/beritaLon", beritaLon_str, true);
 }
 // =============================================== AKHRI FUNGSI sendData() ====================================================================================
