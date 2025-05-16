@@ -33,6 +33,8 @@ void setupSD_Card() {
       file.print(",");
       file.print("Kecepatan Angin");
       file.print(",");
+      file.print("PAR");
+      file.print(",");
       file.print("Curah Hujan");
       file.print(",");
       file.print("V DC");
@@ -45,7 +47,11 @@ void setupSD_Card() {
       file.print(",");
       file.print("I AC");
       file.print(",");
-      file.println("P AC");
+      file.print("P AC");
+      file.print(",");
+      file.print("Latitude");
+      file.print(",");
+      file.println("Longitude");
       file.close();
     }else {
       Serial.println("Gagal membuat file log.csv");
