@@ -1,7 +1,7 @@
 // ========================================= FUNGSI setup_wifi() UNTUK KONEKSI WIFI DAN KONFIGURASI JARINGAN ================================================
 void setup_wifi() {
   // KONFIGURASI DARI PARAMETER JARINGAN
-  if (WiFi.config(staticIP, gateway, subnet, dns, dns2) == false) {
+  if (WiFi.config(staticIP, gateway, subnet, dns) == false) {
     Serial.println("Configuration failed.");
   }
     
