@@ -1,4 +1,4 @@
-// 25 APRIL 2025
+// 15 MEI 2025
 // AUTHOR : AMMAR ARYAN NUHA
 // PROGRAM RIDAM CLOUD A
 // MENERIMA DATA DARI WSN DENGAN FORMAT JSON DENGAN PROTOKOL UDP
@@ -108,6 +108,14 @@ char kodeModulArusAc_str[10], kodeVariabelArusAc_str[10], kodeDataArusAc_str[10]
 // DAYA AC
 char kodeModulDayaAc_str[10], kodeVariabelDayaAc_str[10], kodeDataDayaAc_str[10],
       kodeAlarmDayaAc_str[10], beritaDayaAc_str[50];
+
+// GPS LATITUDE
+char kodeModulLat_str[10], kodeVariabelLat_str[10], kodeDataLat_str[10],
+      kodeAlarmLat_str[10], beritaLat_str[50];
+
+// GPS LONGTITUDE
+char kodeModulLon_str[10], kodeVariabelLon_str[10], kodeDataLon_str[10],
+      kodeAlarmLon_str[10], beritaLon_str[50];
 // ========================= AKHIR DEKLARASI VARIABEL BUFFER KIRIM KE MQTT ===================================================================================
 
 // ========================= DEKLARASI STRUCTURE UNTUK SUHU INDOOR ===========================================================================================
@@ -262,6 +270,28 @@ struct struct_data_sensor_dayaac{
   String berita;
 };
 struct_data_sensor_dayaac dayaacData;
+// =============================================== AKHIR STRUCTURE ===========================================================================================
+
+// =============================================== STRUTCTURE UNTUK GPS LATITUDE ==========================================================================
+struct struct_data_sensor_gps_lat{
+  String kodeModul;
+  int kodeVariabel;
+  float data;
+  int kodeAlarm;
+  String berita;
+};
+struct_data_sensor_gps_lat latData;
+// =============================================== AKHIR STRUCTURE ===========================================================================================
+
+// =============================================== STRUTCTURE UNTUK GPS LONGTITUDE ==========================================================================
+struct struct_data_sensor_gps_lon{
+  String kodeModul;
+  int kodeVariabel;
+  float data;
+  int kodeAlarm;
+  String berita;
+};
+struct_data_sensor_gps_lon lonData;
 // =============================================== AKHIR STRUCTURE ===========================================================================================
 
 // ========================= DEKLARASI VARIABEL UNTUK UPDATE SESUAI INTERVAL =================================================================================
