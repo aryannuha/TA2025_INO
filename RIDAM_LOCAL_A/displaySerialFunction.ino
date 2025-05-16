@@ -167,5 +167,29 @@ void displaySerial(){
   Serial.print(" ");
   Serial.print(dayaacData.berita); 
   Serial.println(); 
+
+  Serial.print("LATITUDE -> ");
+  Serial.print(latData.kodeModul);
+  Serial.print(" ");
+  Serial.print(latData.kodeVariabel);
+  Serial.print(" ");
+  Serial.print(latData.data);
+  Serial.print(" ");
+  Serial.print(latData.kodeAlarm);
+  Serial.print(" ");
+  Serial.print(latData.berita); 
+  Serial.println();
+
+  Serial.print("LONGTITUDE -> ");
+  Serial.print(lonData.kodeModul);
+  Serial.print(" ");
+  Serial.print(lonData.kodeVariabel);
+  Serial.print(" ");
+  Serial.print(lonData.data);
+  Serial.print(" ");
+  Serial.print(lonData.kodeAlarm);
+  Serial.print(" ");
+  Serial.print(lonData.berita); 
+  Serial.println();
 }
 // ============================================================ AKHIR FUNGSI displaySerial() =============================================================
