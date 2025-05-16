@@ -12,10 +12,10 @@
 const char* ssid = "Workshop 3";
 const char* password = "eForacimenyan";
 
-IPAddress staticIP(192, 168, 1, 240);      // IP statis ESP32
-IPAddress gateway(192, 168, 1, 1);
+IPAddress staticIP(192, 168, 0, 240);      // IP statis ESP32
+IPAddress gateway(192, 168, 0, 1);
 IPAddress subnet(255, 255, 255, 0);
-IPAddress dns(192, 168, 1, 1);
+IPAddress dns(192, 168, 0, 1);
 IPAddress dns2(0, 0, 0, 0);
 
 // ========================== DEKLARASI VARIABEL UNTUK MENERIMA DATA DARI FORMAT JSON YANG DIKIRIM WSN =======================================================
@@ -178,6 +178,28 @@ struct struct_data_sensor_dayaac{
   String berita;
 };
 struct_data_sensor_dayaac dayaacData;
+// =============================================== AKHIR STRUCTURE ===========================================================================================
+
+// =============================================== STRUTCTURE UNTUK GPS LATITUDE ==========================================================================
+struct struct_data_sensor_gps_lat{
+  String kodeModul;
+  int kodeVariabel;
+  float data;
+  int kodeAlarm;
+  String berita;
+};
+struct_data_sensor_gps_lat latData;
+// =============================================== AKHIR STRUCTURE ===========================================================================================
+
+// =============================================== STRUTCTURE UNTUK GPS LONGTITUDE ==========================================================================
+struct struct_data_sensor_gps_lon{
+  String kodeModul;
+  int kodeVariabel;
+  float data;
+  int kodeAlarm;
+  String berita;
+};
+struct_data_sensor_gps_lon lonData;
 // =============================================== AKHIR STRUCTURE ===========================================================================================
 
 // ========================== DEKLARASI VARIABEL UNTUK FLAG KETIKA ADA DATA BARU =============================================================================
