@@ -1,14 +1,18 @@
-// 25 APRIL 2025
+// 15 MEI 2025
 // AUTHOR : AMMAR ARYAN NUHA
 // PROGRAM RIDAM LOCAL A
 // MENERIMA DATA DARI WSN DENGAN FORMAT JSON DENGAN PROTOKOL UDP
 // PADA VARIABEL kodeModul_R, kodeVariabel_R, data_R, kodeAlarm_R, berita_R
 // DATA YANG DITERIMA KEMUDIAN DIPARSING UNTUK DISIMPAN PADA MASING-MASING STRUCT
 // SESUAI DENGAN PARAMETER WSN
+// DATA YANG TERDAPAT PADA STRUCT DIKIRIM KE HMI LOCAL DENGAN PROTOKOL MQTT
+// MELALUI BUFFER MQTT UNTUK DIUBAH MENJADI STRING TERLEBIH DAHULU
 
 // ====================================== DEKLARASI LIBRARY =================================================================================================
 #include <WiFi.h>
 #include <WiFiClientSecure.h>
+#include <HTTPClient.h>
+#include <PubSubClient.h>
 #include <HTTPClient.h>
 #include <AsyncUDP.h>
 #include <ArduinoJson.h>
@@ -24,9 +28,15 @@ const char* password =  "eForacimenyan";
 IPAddress staticIP(192, 168, 0, 238);
 IPAddress gateway(192, 168, 0, 1);
 IPAddress subnet(255, 255, 255, 0);
-IPAddress dns(192, 168, 0, 1);
-IPAddress dns2(0, 0, 0, 0);
+IPAddress dns(8, 8, 8, 8);
+// IPAddress dns2(8, 8, 8, 8);
 // ========================== AKHIR SETTING JARINGAN LOKAL ===================================================================================================
+
+// ========================== SETTING CREDENTIAL UNTUK PROTOKOL KOMUNIKASI MQTT ==============================================================================
+// ========================== GANTI DENGAN CREDENTIAL MQTT ANDA ==============================================================================================
+const char* mqtt_server = "192.168.0.141";
+const int mqtt_port = 1883; 
+// ========================== AKHIR SETTING CREDENTIAL PROTOKOL KOMUNIKASI MQTT
 
 // ========================== DEKLARASI VARIABEL UNTUK MENERIMA DATA DARI FORMAT JSON YANG DIKIRIM WSN =======================================================
 String kodeModul_R;
@@ -39,6 +49,72 @@ String berita_R;
 // ========================== DEKLARASI VARIABEL UNTUK FLAG KETIKA ADA DATA BARU =============================================================================
 bool dataBaruTersedia = false;
 // ========================== AKHIR DEKLARASI VARIABEL UNTUK FLAG ============================================================================================
+
+// ========================== DEKLARASI VARIABEL BUFFER KIRIM KE MQTT ========================================================================================
+// SUHU INDOOR
+char kodeModulSuhuIn_str[10], kodeVariabelSuhuIn_str[10], kodeDataSuhuIn_str[10], 
+      kodeAlarmSuhuIn_str[10], beritaSuhuIn_str[50];
+
+// KELEMBABAN INDOOR
+char kodeModulKelembabanIn_str[10], kodeVariabelKelembabanIn_str[10], kodeDataKelembabanIn_str[10],
+      kodeAlarmKelembabanIn_str[10], beritaKelembabanIn_str[50];
+
+// SUHU OUTDOOR
+char kodeModulSuhuOut_str[10], kodeVariabelSuhuOut_str[10], kodeDataSuhuOut_str[10], 
+      kodeAlarmSuhuOut_str[10], beritaSuhuOut_str[50];
+
+// KELEMBABAN OUTDOOR
+char kodeModulKelembabanOut_str[10], kodeVariabelKelembabanOut_str[10], kodeDataKelembabanOut_str[10],
+      kodeAlarmKelembabanOut_str[10], beritaKelembabanOut_str[50];
+
+// CO2
+char kodeModulCo2_str[10], kodeVariabelCo2_str[10], kodeDataCo2_str[10],
+      kodeAlarmCo2_str[10], beritaCo2_str[50];
+
+// KECEPATAN ANGIN
+char kodeModulWindspeed_str[10], kodeVariabelWindspeed_str[10], kodeDataWindspeed_str[10],
+      kodeAlarmWindspeed_str[10], beritaWindspeed_str[50];
+
+// CURAH HUJAN
+char kodeModulRainfall_str[10], kodeVariabelRainfall_str[10], kodeDataRainfall_str[10],
+      kodeAlarmRainfall_str[10], beritaRainfall_str[50];
+
+// PAR
+char kodeModulPar_str[10], kodeVariabelPar_str[10], kodeDataPar_str[10],
+      kodeAlarmPar_str[10], beritaPar_str[50];
+
+// TEGANGAN DC
+char kodeModulTeganganDc_str[10], kodeVariabelTeganganDc_str[10], kodeDataTeganganDc_str[10],
+      kodeAlarmTeganganDc_str[10], beritaTeganganDc_str[50];
+
+// ARUS DC
+char kodeModulArusDc_str[10], kodeVariabelArusDc_str[10], kodeDataArusDc_str[10],
+      kodeAlarmArusDc_str[10], beritaArusDc_str[50];
+
+// DAYA DC
+char kodeModulDayaDc_str[10], kodeVariabelDayaDc_str[10], kodeDataDayaDc_str[10],
+      kodeAlarmDayaDc_str[10], beritaDayaDc_str[50];
+
+// TEGANGAN AC
+char kodeModulTeganganAc_str[10], kodeVariabelTeganganAc_str[10], kodeDataTeganganAc_str[10],
+      kodeAlarmTeganganAc_str[10], beritaTeganganAc_str[50];
+
+// ARUS AC
+char kodeModulArusAc_str[10], kodeVariabelArusAc_str[10], kodeDataArusAc_str[10],
+      kodeAlarmArusAc_str[10], beritaArusAc_str[50];
+
+// DAYA AC
+char kodeModulDayaAc_str[10], kodeVariabelDayaAc_str[10], kodeDataDayaAc_str[10],
+      kodeAlarmDayaAc_str[10], beritaDayaAc_str[50];
+
+// GPS LATITUDE
+char kodeModulLat_str[10], kodeVariabelLat_str[10], kodeDataLat_str[10],
+      kodeAlarmLat_str[10], beritaLat_str[50];
+
+// GPS LONGTITUDE
+char kodeModulLon_str[10], kodeVariabelLon_str[10], kodeDataLon_str[10],
+      kodeAlarmLon_str[10], beritaLon_str[50];
+// ========================= AKHIR DEKLARASI VARIABEL BUFFER KIRIM KE MQTT ===================================================================================
 
 // ========================= DEKLARASI STRUCTURE UNTUK SUHU INDOOR ===========================================================================================
 struct struct_data_sensor_suhu {
@@ -194,6 +270,28 @@ struct struct_data_sensor_dayaac{
 struct_data_sensor_dayaac dayaacData;
 // =============================================== AKHIR STRUCTURE ===========================================================================================
 
+// =============================================== STRUTCTURE UNTUK GPS LATITUDE ==========================================================================
+struct struct_data_sensor_gps_lat{
+  String kodeModul;
+  int kodeVariabel;
+  float data;
+  int kodeAlarm;
+  String berita;
+};
+struct_data_sensor_gps_lat latData;
+// =============================================== AKHIR STRUCTURE ===========================================================================================
+
+// =============================================== STRUTCTURE UNTUK GPS LONGTITUDE ==========================================================================
+struct struct_data_sensor_gps_lon{
+  String kodeModul;
+  int kodeVariabel;
+  float data;
+  int kodeAlarm;
+  String berita;
+};
+struct_data_sensor_gps_lon lonData;
+// =============================================== AKHIR STRUCTURE ===========================================================================================
+
 // ========================= DEKLARASI VARIABEL UNTUK UPDATE SESUAI INTERVAL =================================================================================
 unsigned long previousMillis = 0;
 const long interval = 1000;
@@ -201,6 +299,8 @@ const long interval = 1000;
 
 // ========================= DEKLARASI OBJEK DARI MASING-MASING LIBRARY ======================================================================================
 AsyncUDP udp;
+WiFiClient espClient;
+PubSubClient client(espClient);
 // ========================= AKHIR DEKLARASI OBJEK DARI MASING-MASING LIBRARY ================================================================================
 
 void setup() {
@@ -215,11 +315,26 @@ void setup() {
 
   // TUNGGU 2 DETIK SEBELUM MASUK KE LOOP
   delay(2000); 
+
+  // MENGGUNAKAN SERTIFIKAT ROOT UNTUK MQTT
+  // espClient.setInsecure();  
+
+  // SETTING MQTT SERVER DAN PORT
+  client.setServer(mqtt_server, mqtt_port); 
+
+  // MENJAGA SISTEM TIDAK WATCHDOG RESET
+  yield();
 }
 
 void loop() {
   // MEMULAI MILLIS
   unsigned long currentMillis = millis();
+
+  // LOOP MQTT
+  if (!client.connected()) {
+    reconnect();
+  }
+  client.loop();
 
   // UPLOAD PROGRAM SETIAP INTERVAL
   if(currentMillis - previousMillis >= interval){
@@ -228,8 +343,14 @@ void loop() {
 
     // SAAT ADA DATA JSON BARU JALANKAN FUNGSI-FUNGSI DI BAWAH
     if(dataBaruTersedia){
+      // PANGGIL FUNGSI parsing()
+      parsing();
+
       // MEMANGGIL FUNGSI proses()
       proses();
+
+      // MEMANGGIL FUNGSI sendData()
+      sendData();
 
       // MEMANGGIL FUNGSI displaySerial()
       displaySerial();
