@@ -25,6 +25,8 @@ void saveDataToSD() {
     file.print(",");
     file.print(windspeedData.data);
     file.print(",");
+    file.print(parData.data);
+    file.print(",");
     file.print(rainfallData.data);
     file.print(",");
     file.print(tegangandcData.data);
@@ -37,7 +39,11 @@ void saveDataToSD() {
     file.print(",");
     file.print(arusacData.data);
     file.print(",");
-    file.println(dayaacData.data);
+    file.print(dayaacData.data);
+    file.print(",");
+    file.print(latData.data);
+    file.print(",");
+    file.println(lonData.data);
     file.close();
     Serial.println("Data tersimpan ke SD Card.");
   } else {
@@ -131,6 +137,18 @@ void parsing(){
     dayaacData.data = data_R;
     dayaacData.kodeAlarm = kodeAlarm_R;
     dayaacData.berita = berita_R;  
+  }else if(kodeModul_R == "10" && kodeVariabel_R == 11){
+    latData.kodeModul = kodeModul_R;
+    latData.kodeVariabel = kodeVariabel_R;
+    latData.data = data_R;
+    latData.kodeAlarm = kodeAlarm_R;
+    latData.berita = berita_R;  
+  }else if(kodeModul_R == "10" && kodeVariabel_R == 12){
+    lonData.kodeModul = kodeModul_R;
+    lonData.kodeVariabel = kodeVariabel_R;
+    lonData.data = data_R;
+    lonData.kodeAlarm = kodeAlarm_R;
+    lonData.berita = berita_R;  
   }else{
     Serial.println("Tidak ada modul");
   }
