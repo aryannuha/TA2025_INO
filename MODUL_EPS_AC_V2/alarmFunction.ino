@@ -25,7 +25,7 @@ void kondisi(){
   // VARIABEL ALARM DAYA
   float LL_P = 1;
   float L_P = 3;
-  float N_P = 5;
+  float N_P = 6.5;
   float H_P = 10;
 
   // MENETAPKAN kodeAlarm DAN BERITA TEGANGAN

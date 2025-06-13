@@ -53,7 +53,7 @@ void displayData(int moduleIdx, int varIdx) {
     lcd.setCursor(0, 2); lcd.print("Alarm: " + String(dataMatrix[moduleIdx][varIdx].kodeAlarm));
     // Tampilkan status hening/abaikan
     if (dataMatrix[moduleIdx][varIdx].alarmSilencedTime > 0) {
-        lcd.print(" (Hening 2m)");
+        lcd.print(" (Hening 5m)");
     } else if (dataMatrix[moduleIdx][varIdx].warningCleared) {
         lcd.print(" (Diabaikan)");
     }

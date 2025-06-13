@@ -28,7 +28,7 @@
 
 // ========================================================= DEKLARASI PIN ============================================================================
 #define buzzPin 4    //Connect Buzzer on Digital Pin4
-#define buttonPin 13
+#define buttonPin 18
 #define buttonPin2 15
 
 // Deklarasi pin LED
@@ -155,25 +155,25 @@ void setup() {
 }
 
 void loop() {
-  //  static unsigned long lastDebugTime = 0;
-  // if (millis() - lastDebugTime > 5000) {
-  //   Serial.println("=== DEBUG INFO ===");
-  //   Serial.print("Display Mode: ");
-  //   Serial.println(displayMode);
-  //   Serial.print("Current Index: ");
-  //   Serial.println(currentDisplayIndex);
-  //   Serial.print("Total Data: ");
-  //   Serial.println(countValidData());
-  //   Serial.print("Current Alarm Code: ");
-  //   Serial.println(currentAlarmCode);
-  //   Serial.println("==================");
-  //   lastDebugTime = millis();
-  // }
+   static unsigned long lastDebugTime = 0;
+  if (millis() - lastDebugTime > 2000) {
+    Serial.println("=== DEBUG INFO ===");
+    Serial.print("Display Mode: ");
+    Serial.println(displayMode);
+    Serial.print("Current Index: ");
+    Serial.println(currentDisplayIndex);
+    Serial.print("Total Data: ");
+    Serial.println(countValidData());
+    Serial.print("Current Alarm Code: ");
+    Serial.println(currentAlarmCode);
+    Serial.println("==================");
+    lastDebugTime = millis();
+  }
 
-  // Serial.print("read1: ");
-  // Serial.print(digitalRead(buttonPin));
-  // Serial.print("   read2: ");
-  // Serial.println(digitalRead(buttonPin2));
+  Serial.print("read1: ");
+  Serial.print(digitalRead(buttonPin));
+  Serial.print("   read2: ");
+  Serial.println(digitalRead(buttonPin2));
   // 1. Selalu periksa dan tangani input tombol
   handleButtons();
 

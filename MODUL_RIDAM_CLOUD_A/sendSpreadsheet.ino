@@ -31,7 +31,7 @@ void sendToSpreadsheet() {
   float par         = getValueFromMatrix("06", 11); // <-- EXAMPLE, please adjust
   float rainfall    = getValueFromMatrix("05", 11); // <-- EXAMPLE, please adjust
   float windspeed   = getValueFromMatrix("04", 11); // <-- EXAMPLE, please adjust
-  float co2         = getValueFromMatrix("04", 11); // <-- EXAMPLE, please adjust
+  float co2         = getValueFromMatrix("03", 11); // <-- EXAMPLE, please adjust
   float latitude    = getValueFromMatrix("10", 11); // <-- EXAMPLE, please adjust
   float longitude   = getValueFromMatrix("10", 12); // <-- EXAMPLE, please adjust
   float voltageAc   = getValueFromMatrix("09", 11); // <-- EXAMPLE, please adjust
