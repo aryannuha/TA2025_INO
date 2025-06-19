@@ -31,7 +31,7 @@
 #define         READ_SAMPLE_INTERVAL         (50)    // define the time interval(in milisecond) between each samples
 #define         READ_SAMPLE_TIMES            (5)     // define how many samples you are going to take in normal operation
 
-#define         ZERO_POINT_VOLTAGE           (0.0023529411764706) // define the output of the sensor in volts when the concentration of CO2 is 400PPM, was read 412mV
+#define         ZERO_POINT_VOLTAGE           (0.0337647058823529) // define the output of the sensor in volts when the concentration of CO2 is 400PPM, was read 287mV
 #define         REACTION_VOLTAGE             (0.030) // define the voltage drop of the sensor when move the sensor from air into 1000ppm CO2
 
 float           CO2Curve[3]  =  {2.602,ZERO_POINT_VOLTAGE,(REACTION_VOLTAGE/(2.602-3))};
@@ -144,6 +144,13 @@ void setup()
     // ESP32-specific ADC configuration
     analogSetWidth(12);                              // Set resolution to 12 bits
     analogSetAttenuation(ADC_11db);                  // Set attenuation for the full 3.3V range
+
+    // Inisialisasi eeprom
+    if (!EEPROM.begin(EEPROM_SIZE)) {
+      Serial.println("Failed to initialise EEPROM! Stopping...");
+      while (1); // Berhenti jika gagal inisialisasi EEPROM
+    }
+    Serial.println("EEPROM initialized successfully.");
 
     // Load ML data from EEPROM
     loadMLDataFromEEPROM();

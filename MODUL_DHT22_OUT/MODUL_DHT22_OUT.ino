@@ -154,8 +154,18 @@ void setup() {
   // INISIALISASI WIFI
   setup_wifi();   
 
+  // Inisialisasi eeprom
+  if (!EEPROM.begin(EEPROM_SIZE)) {
+    Serial.println("Failed to initialise EEPROM! Stopping...");
+    while (1); // Berhenti jika gagal inisialisasi EEPROM
+  }
+  Serial.println("EEPROM initialized successfully.");
+
   // Load ML data from EEPROM
   loadMLDataFromEEPROM();
+
+  // reset data ml in eeprom
+  // reset_regression();
 }
 
 void loop() {
@@ -201,8 +211,6 @@ void loop() {
     if (n % 60 == 0 || n_humid % 60 == 0) {
       saveMLDataToEEPROM();
     }
-
-    // reset_regression();
   }
 }
 

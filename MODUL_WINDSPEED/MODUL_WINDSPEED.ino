@@ -133,6 +133,13 @@ void setup() {
   // Inisialisasi wifi
   setup_wifi();   
 
+  // Inisialisasi eeprom
+  if (!EEPROM.begin(EEPROM_SIZE)) {
+    Serial.println("Failed to initialise EEPROM! Stopping...");
+    while (1); // Berhenti jika gagal inisialisasi EEPROM
+  }
+  Serial.println("EEPROM initialized successfully.");
+
   // Load ML data from EEPROM
   loadMLDataFromEEPROM();
 }
