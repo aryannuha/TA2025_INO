@@ -46,7 +46,7 @@ void machine_learning_humidity(){
   
   // Calculate slope (b)
   float numerator = (n_humid * sum_xy_humid) - (sum_x_humid * sum_y_humid);
-  float denominator = (n * sum_x_squared_humid) - (sum_x_humid * sum_x_humid);
+  float denominator = (n_humid * sum_x_squared_humid) - (sum_x_humid * sum_x_humid);
   
   if (denominator != 0) {
     b_humid = numerator / denominator;
@@ -58,7 +58,7 @@ void machine_learning_humidity(){
   // a = (sum_y/n) - b*(sum_x/n)
   float y_mean = sum_y_humid / n_humid;
   float x_mean = sum_x_humid / n_humid;
-  a_humid = y_mean - (b * x_mean);
+  a_humid = y_mean - (b_humid * x_mean);
 }
 // ==================================================== AKHIR FUNGSI machine_learning_humidity() ============================================================
 

@@ -164,6 +164,9 @@ void setup() {
 
   // Load ML data from EEPROM
   loadMLDataFromEEPROM();
+
+  // reset regresi in eeprom
+  // reset_regression();
 }
 
 void loop() {
@@ -209,8 +212,6 @@ void loop() {
     if (n % 60 == 0 || n_humid % 60 == 0) {
       saveMLDataToEEPROM();
     }
-
-    // reset_regression();
   }
 }
 
